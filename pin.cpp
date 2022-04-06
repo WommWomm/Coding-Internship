@@ -28,3 +28,10 @@ int calculate_distance(pin pin1, pin pin2) {
     int ergebnis = abs(pin1.get_x()-pin2.get_x())+ abs(pin1.get_y()-pin2.get_y()); //berechnet Abstand in Manhatten Norm
     return ergebnis;
 }
+
+void print_pin_vector(vector<pin> target) {
+
+    for(int i = 0; i < target.size(); i++) {
+        target[i].print_pin();
+    }
+}

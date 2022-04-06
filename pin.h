@@ -1,9 +1,9 @@
 #ifndef MAIN_CPP_PIN_H
 #define MAIN_CPP_PIN_H
 
-
 #include <cmath>
 #include <iostream>
+#include <vector>
 
 // Klasse die wir zum speichern und rechnen von zweidimensionalen Koordinaten nutzen
 
@@ -42,5 +42,7 @@ public:
 };
 
 int calculate_distance(pin pin1, pin pin2);
+
+void print_pin_vector(vector<pin> target);
 
 #endif //MAIN_CPP_PIN_H
