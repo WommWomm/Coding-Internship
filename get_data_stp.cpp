@@ -107,10 +107,10 @@ int extract_number_of_nodes(fstream& MyFile) {
     return storage_number;
 }
 
-vector<pin> extract_coordinates(fstream& MyFile, int number_nodes) {
+vector<Pin> extract_coordinates(fstream& MyFile, int number_nodes) {
 
-    vector<pin> Coordinates;
-    pin storage_pin;
+    vector<Pin> Coordinates;
+    Pin storage_pin;
     string storage_string;
     int storage_number;
 
@@ -144,7 +144,7 @@ void print_comment(fstream& MyFile) {
 
 }
 
-void get_data_from_File(int* number_nodes,vector<pin>* coordinates) {
+void get_data_from_File(int* number_nodes,vector<Pin>* coordinates) {
 
     fstream RSMT_Instanz(get_file_name(),ios::in);        //öffnet Instanz
 

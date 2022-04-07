@@ -9,19 +9,18 @@
 
 using namespace std;
 
-class pin {
+class Pin {
 private:
     int x;
     int y;
 
 public:
-
-    pin(int _x, int _y);
-    pin();
+    Pin(int _x, int _y);
+    Pin();
 
     void set_pin(int _x, int _y);
 
-    int calculate_distance(pin target);
+    int calculate_distance(Pin target);
     void print_pin();
 
     int get_x() const {
@@ -41,8 +40,8 @@ public:
     }
 };
 
-int calculate_distance(pin pin1, pin pin2);
+int calculate_distance(Pin pin1, Pin pin2);
 
-void print_pin_vector(vector<pin> target);
+void print_pin_vector(vector<Pin> target);
 
 #endif //MAIN_CPP_PIN_H
