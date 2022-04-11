@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void print_coordinates(vector<vector<int>> coordinates) {
+void print_matrix(vector<vector<int>> coordinates) {
 
     for(int i = 0; i < coordinates.size(); i++) {
 
@@ -19,16 +19,33 @@ void print_coordinates(vector<vector<int>> coordinates) {
     }
 }
 
+void print_Baum(vector<int> Baum) {
+    for(int i = 0; i < Baum.size(); i++) {
+        cout << Baum[i] << endl;
+    }
+}
+
 int main() {
-    int number_nodes = 0;
+    int number_nodes = 10;
     vector<vector<int>> coordinates;
     vector<int> Baum;
+
+    vector<int> parent;
+
+    vector<vector<int>> heap;
+    vector<int> v1(2);
 
     get_data_from_File(number_nodes,coordinates);
 
     Distance_matrix distance_matrix(number_nodes, coordinates);
 
+    //bool val = distance_smaller_value(distance_matrix,heap,7,5);
+
+    //cout << val << endl;
+
     Baum = prims_algorithm(distance_matrix,number_nodes);
+
+    //print_Baum(Baum);
 
     return 0;
 }

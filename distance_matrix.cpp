@@ -12,12 +12,12 @@ Distance_matrix::Distance_matrix(int number_nodes,vector<vector<int>> coordinate
 int Distance_matrix::get_length(int _x, int _y) {
     int storage_number;
 
-    if(_x < 1 || _x > distance_matrix.size()) {
+    if(_x < 0 || _x > distance_matrix.size()) {
         cout << "Bitte geben Sie eine gültige Kante ein!";
         exit(5);
     }
 
-    if(_y < 1 || _y > distance_matrix.size()) {
+    if(_y < 0 || _y > distance_matrix.size()) {
         cout << "Bitte geben Sie eine gültige Kante ein!";
         exit(5);
     }
