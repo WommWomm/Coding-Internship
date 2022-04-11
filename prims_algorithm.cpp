@@ -28,11 +28,10 @@ bool contains(vector<vector<int>> &heap, int node) {
 }
 
 bool distance_smaller_value(Distance_matrix distance_matrix,vector<vector<int>> heap, int node, int current_node) {
-    int place_storage;
 
     for(int i = 0; i < heap.size(); i++) {
         if(heap[i][0] == node ) {
-            if(distance_matrix.get_length(node+1,current_node+1)<heap[i][1] || heap[i][1] == -1) {
+            if(distance_matrix.get_length(node,current_node)<heap[i][1] || heap[i][1] == -1) {
                 return true;
             }
         }
@@ -41,12 +40,12 @@ bool distance_smaller_value(Distance_matrix distance_matrix,vector<vector<int>> 
     return false;
 }
 
-vector<vector<int>> prims_algorithm(Distance_matrix distance_matrix, int number_nodes) {
+vector<int> prims_algorithm(Distance_matrix distance_matrix, int number_nodes) {
     int current_node;
 
     vector<int> parent;
 
-    vector<vector<int>> heap(number_nodes);
+    vector<vector<int>> heap;
 
     for(int i = 0; i < number_nodes; i++) {
         heap[i][0] = i;
@@ -62,9 +61,10 @@ vector<vector<int>> prims_algorithm(Distance_matrix distance_matrix, int number_
         for(int i = 0; i < number_nodes, i != current_node; i++) {
             if(contains(heap,i) && distance_smaller_value(distance_matrix,heap,i,current_node)) {
                 parent[i] = current_node;
-                heap[i][1] = distance_matrix.get_length(i+1,current_node+1);
+                heap[i][1] = distance_matrix.get_length(i,current_node);
             }
         }
     }
 
+    return parent;
 }

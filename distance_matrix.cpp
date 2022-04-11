@@ -1,10 +1,11 @@
 #include "distance_matrix.h"
+#include <iostream>
 
 Distance_matrix::Distance_matrix() {
 
 }
 
-Distance_matrix::Distance_matrix(int number_nodes,vector<Pin> coordinates) {
+Distance_matrix::Distance_matrix(int number_nodes,vector<vector<int>> coordinates) {
     distance_matrix = calculate_distance_matrix(number_nodes,coordinates);
 }
 
@@ -26,10 +27,15 @@ int Distance_matrix::get_length(int _x, int _y) {
         _x =_y;
         _y = storage_number;
     }
-    return distance_matrix[_x-1][_y-1-_x];
+    return distance_matrix[_x][_y-_x];
 }
 
-vector<vector<int>> calculate_distance_matrix(int number_nodes,vector<Pin> coordinates) {
+int calculate_distance(vector<int> pin_1,vector<int> pin_2) {
+    int result = abs(pin_1[0]-pin_2[0])+ abs(pin_1[1]-pin_2[1]);
+    return result;
+}
+
+vector<vector<int>> calculate_distance_matrix(int number_nodes,vector<vector<int>> coordinates) {
 
     vector<vector<int>> distance_matrix;
     int storage_number;

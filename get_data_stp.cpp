@@ -107,10 +107,11 @@ int extract_number_of_nodes(fstream& MyFile) {
     return storage_number;
 }
 
-vector<Pin> extract_coordinates(fstream& MyFile, int number_nodes) {
+vector<vector<int>> extract_coordinates(fstream& MyFile, int number_nodes) {
 
-    vector<> Coordinates;
-    Pin storage_pin;
+    vector<vector<int>> coordinates;
+
+    vector<int> storage_pin(2);
     string storage_string;
     int storage_number;
 
@@ -119,42 +120,42 @@ vector<Pin> extract_coordinates(fstream& MyFile, int number_nodes) {
     if(storage_string != "DD") {                                        //Überprüft ob wir in SECTION Coordinates sind
         cout << "This method can only be called if you are already "
                 "in SECTION Coordinates! Empty vector has been returned." << endl;
-        return Coordinates;
+        return coordinates;
     }
 
     MyFile >> storage_string;                       //setzt und an korrekte stelle um mit dem for loop zu beginnen
 
     for(int i = 0; i < number_nodes; i++) {         //läuft Anzahl an Knoten oft und speichert
         MyFile >> storage_number;                   //Koordinaten in pin vector
-        storage_pin.set_x(storage_number);
+        storage_pin[0] = storage_number;
 
         MyFile >> storage_number;
-        storage_pin.set_y(storage_number);
+        storage_pin[1] = storage_number;
 
-        Coordinates.push_back(storage_pin);
+        coordinates.push_back(storage_pin);
 
         MyFile >> storage_string;                       //geht bestimmt smarter? springt zwei strings;
         MyFile >> storage_string;
     }
 
-    return Coordinates;
+    return coordinates;
 }
 
 void print_comment(fstream& MyFile) {
 
 }
 
-void get_data_from_File(int* number_nodes,vector<Pin>* coordinates) {
+void get_data_from_File(int &number_nodes,vector<vector<int>> &coordinates) {
 
     fstream RSMT_Instanz(get_file_name(),ios::in);        //öffnet Instanz
 
     control_if_open(RSMT_Instanz);
 
     goto_section_graph(RSMT_Instanz);                           //liest Anzahl Knoten aus
-    *number_nodes = extract_number_of_nodes(RSMT_Instanz);
+    number_nodes = extract_number_of_nodes(RSMT_Instanz);
 
     goto_section_coordinates(RSMT_Instanz);                 //liest Koordinaten aus
-    *coordinates = extract_coordinates(RSMT_Instanz,*number_nodes);
+    coordinates = extract_coordinates(RSMT_Instanz,number_nodes);
 
     RSMT_Instanz.close();                       //schließt Instanz
 }

@@ -2,7 +2,6 @@
 #define MAIN_CPP_DISTANCE_MATRIX_H
 
 #include <vector>
-#include "Pin.h"
 
 using namespace std;
 
@@ -12,7 +11,7 @@ private:
 
 public:
     Distance_matrix();
-    Distance_matrix(int number_nodes,vector<Pin> coordinates);
+    Distance_matrix(int number_nodes,vector<vector<int>> coordinates);
 
     int get_length(int _x,int _y);
 
@@ -27,7 +26,9 @@ public:
     void print_distance_matrix();
 };
 
-vector<vector<int>> calculate_distance_matrix(int number_nodes,vector<Pin> coordinates);
+int calculate_distance(vector<int> pin_1,vector<int> pin_2);
+
+vector<vector<int>> calculate_distance_matrix(int number_nodes,vector<vector<int>> coordinates);
 
 
 #endif //MAIN_CPP_DISTANCE_MATRIX_H
