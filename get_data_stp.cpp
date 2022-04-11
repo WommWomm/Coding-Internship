@@ -97,19 +97,19 @@ int extract_number_of_nodes(fstream& MyFile) {
 
     MyFile >> storage_word;
 
-    if(storage_word != "Nodes") {                                       //Überprüft ob wir und in SECTION Comment befinden
+    if(storage_word != "Nodes") {                                       //Überprüft, ob wir und in SECTION Comment befinden
         cout << "This method can only be called if you are already "
                 "in SECTION Graph! 0 has been returned." << endl;
         return 0;
     }
 
-    MyFile >> storage_number;                           //speichert Anzahl an Knoten und gibt ANzahl zurück
+    MyFile >> storage_number;                           //speichert Anzahl an Knoten und gibt Anzahl zurück
     return storage_number;
 }
 
 vector<Pin> extract_coordinates(fstream& MyFile, int number_nodes) {
 
-    vector<Pin> Coordinates;
+    vector<> Coordinates;
     Pin storage_pin;
     string storage_string;
     int storage_number;
