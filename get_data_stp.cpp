@@ -1,51 +1,50 @@
 #include "get_data_stp.h"
-#include <iostream>
 
 string get_file_name() {
-    string name;
+    string storage_name;
 
-    cout << "Type in Filename of STP: " << endl;  //Fragt Namen ab
-    cin  >> name;
+    cout << "Type in Filename of STP: " << endl;
+    cin  >> storage_name;
 
-    return name.append(".stp");
+    return storage_name.append(".stp");             //weil ich stp file öffnen will
 }
 
 void control_if_open(fstream& MyFile) {
-    if(MyFile.is_open()) {                //Überprüft ob Datei Instanz geöffnet wurde
+    if(MyFile.is_open()) {
         cout << "Die Datei wurde erfolgreich geoeffnet." << endl;
     } else {
-        cout << "FEHLER: Die Datei konnte nicht geöffnet werden." << endl;
-        exit(1);            //Weist diesem Fehler einen Exitcode zu und beendet Programm
+        cout << "FEHLER: Die Datei konnte nicht geoeffnet werden." << endl;
+        exit(1);
     }
 }
 
 void goto_section_comment(fstream& MyFile) {
     string storage_word1;                                       //Ich suche nach einer Kombination von zwei Wörten
     string storage_word2;                                       //Die Strings repräsentieren stets zwei hintereinander
-    //stehender Wörter im Dokument
+                                                                //stehender Wörter im Dokument
     MyFile.clear();
-    MyFile.seekg(0, ios::beg);                                  //setzt den Courser and den Anfang des Dokuments
+    MyFile.seekg(ios::beg);                                     //setzt den Courser and den Anfang des Dokuments
 
     MyFile >> storage_word1;                                    //setzt den Courser auf die ersten zwe Worte
     MyFile >> storage_word2;
 
-    while (MyFile.good()) {                                 //läuft so lange wir nicht am Ende des Dokuments sind
+    while (MyFile.good()) {
 
         if(storage_word1 == "SECTION" && storage_word2 == "Comment") {          //Abbruch bei der richtigen Wortkombination
             return;
         }
 
-        storage_word1 = storage_word2;                      //setzt den Courser zwei Worte weiter
+        storage_word1 = storage_word2;                          //setzt den Courser zwei Worte weiter
         MyFile >> storage_word2;
     }
 
-    cout << "There is no SECTION Comment in the given data! "<< endl;       //Gibt "Fehler" zurück falls die SECTION
-    exit(4);                                                          //nicht existiert
+    cout << "There is no SECTION Comment in the given data! "<< endl;           //Gibt "Fehler" zurück falls die SECTION
+    exit(4);                                                            //nicht existiert
 }
 
 void goto_section_graph(fstream& MyFile) {
-    string storage_word1;                                           //Funktionsweise und Code analog zu
-    string storage_word2;                                           //goto_section_comment
+    string storage_word1;                                        //Funktionsweise und Code analog zu
+    string storage_word2;                                        //goto_section_comment
 
     MyFile.clear();
     MyFile.seekg(ios::beg);
@@ -67,8 +66,8 @@ void goto_section_graph(fstream& MyFile) {
     exit(2);
 }
 
-void goto_section_coordinates(fstream& MyFile) {            //Funktionsweise und Code analog zu
-    string storage_word1;                                   //goto_section_comment
+void goto_section_coordinates(fstream& MyFile) {                    //Funktionsweise und Code analog zu
+    string storage_word1;                                           //goto_section_comment
     string storage_word2;
 
     MyFile.clear();
@@ -97,13 +96,13 @@ int extract_number_of_nodes(fstream& MyFile) {
 
     MyFile >> storage_word;
 
-    if(storage_word != "Nodes") {                                       //Überprüft, ob wir und in SECTION Comment befinden
+    if(storage_word != "Nodes") {                                       //Überprüft, ob wir und in SECTION Nodes befinden
         cout << "This method can only be called if you are already "
                 "in SECTION Graph! 0 has been returned." << endl;
         return 0;
     }
 
-    MyFile >> storage_number;                           //speichert Anzahl an Knoten und gibt Anzahl zurück
+    MyFile >> storage_number;                                           //speichert Anzahl an Knoten und gibt Anzahl zurück
     return storage_number;
 }
 
@@ -134,16 +133,16 @@ vector<vector<int>> extract_coordinates(fstream& MyFile, int number_nodes) {
 
         coordinates.push_back(storage_pin);
 
-        MyFile >> storage_string;                       //geht bestimmt smarter? springt zwei strings;
+        MyFile >> storage_string;                    //geht bestimmt smarter? springt zwei strings;
         MyFile >> storage_string;
     }
 
     return coordinates;
 }
 
-void print_comment(fstream& MyFile) {
-
-}
+void print_comment(fstream& MyFile) {               //Ich hatte irgendwann gedacht es wäre cool den
+                                                    //comment optional auszugeben hab das aber
+}                                                   //noch nicht umgesetzt deshalb auch die goto_comment funktion
 
 void get_data_from_File(int &number_nodes,vector<vector<int>> &coordinates) {
 
@@ -151,11 +150,11 @@ void get_data_from_File(int &number_nodes,vector<vector<int>> &coordinates) {
 
     control_if_open(RSMT_Instanz);
 
-    goto_section_graph(RSMT_Instanz);                           //liest Anzahl Knoten aus
+    goto_section_graph(RSMT_Instanz);
     number_nodes = extract_number_of_nodes(RSMT_Instanz);
 
-    goto_section_coordinates(RSMT_Instanz);                 //liest Koordinaten aus
+    goto_section_coordinates(RSMT_Instanz);
     coordinates = extract_coordinates(RSMT_Instanz,number_nodes);
 
-    RSMT_Instanz.close();                       //schließt Instanz
+    RSMT_Instanz.close();                              //schließt Instanz
 }

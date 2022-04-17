@@ -1,19 +1,22 @@
 33D32945 STP File, STP Format Version 1.0
 
 SECTION Comment
-Name    "eZ"
-Creator "Nick"
+Name    "deg10-0000"
+Creator "ISPD98"
 Remark  "Converted automatically, Net 0/999."
 END
 
 SECTION Graph
-Nodes 3
+Nodes 5
 END
 
 SECTION Coordinates
-DD 1 0 0
-DD 2 1 0
-DD 3 0 3
+DD 1 1 1
+DD 2 4 1
+DD 3 7 1
+DD 4 3 4
+DD 5 2 -1
+
 END
 
 EOF
